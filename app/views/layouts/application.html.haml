@@ -34,21 +34,23 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.navbar-brand{:href => "/"} Memos
+        %a.navbar-brand{:href => "/"} Blog
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav.navbar-right
             - if current_user
               %li
                 %p.navbar-text= current_user.name
-              - unless @edit_mode
-                %li= link_to "管理画面", "/edit"
+              - unless admin?
+                %li= link_to "Edit Page", "/admin/memos"
+              - else
+                %li= link_to "Return", "/"
             - else
               %li
                 %p.navbar-text guest
             - if session[:user_id]
-              %li= link_to "ログアウト", session_path, method: :delete
+              %li= link_to "Logout", session_path, method: :delete
             - else
-              %li= link_to "ログイン", "/session/new"
+              %li= link_to "Login", "/session/new"
 
     .container
       .row

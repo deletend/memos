@@ -1,4 +1,7 @@
-= form_for @memo, :html => { :class => "form-horizontal memo" } do |f|
+- model_class = Memo
+.page-header
+  %h1 New Entry
+= form_for @memo, url: admin_memos_path, html: { class: "form-horizontal memo" } do |f|
   - if @memo.errors.any?
     #error_expl.panel.panel-danger
       .panel-heading
@@ -21,5 +24,5 @@
     = f.error_span(:body)
   .form-group
     .col-lg-offset-2.col-lg-10
-      = f.submit nil, :class => 'btn btn-primary'
-      = link_to t('.cancel', :default => t("helpers.links.cancel")), memos_path, :class => 'btn btn-default'
+      = f.submit "Save Entry", :class => 'btn btn-primary'
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), "/admin" + memos_path, :class => 'btn btn-default'

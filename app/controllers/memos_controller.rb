@@ -1,5 +1,6 @@
 class MemosController < ApplicationController
-  before_action :set_memo, only: [:show, :edit, :update, :destroy]
+  before_action :set_memo, only: [:show, :edit, :update, :destroy, :create_commnet]
+  helper_method :admin?
 
   # GET /memos
   # GET /memos.json
@@ -13,57 +14,25 @@ class MemosController < ApplicationController
   def show
   end
 
-  # GET /memos/new
-  def new
-    if @user = current_user
-      @memo = Memo.new
-    else
-      redirect_to "/", notice: "ログインして"
-    end
+  def admin?
+    return false
   end
 
-  # GET /memos/1/edit
-  def edit
+  def new_comment
+    @comment = Comment.new
   end
 
-  # POST /memos
-  # POST /memos.json
-  def create
-    @memo = Memo.new(memo_params)
-    @user = current_user
+  def create_comment
+    @comment = Comment.new(comment_params)
 
     respond_to do |format|
-      if @user.memos.create!(title: params["memo"]["title"], body: params["memo"]["body"])
-        format.html { redirect_to @memo, notice: 'Entry was successfully created.' }
+      if @memo.create!(memo_id: @memo["id"], body: params["comment"]["body"])
+        format.html { redirect_to @memo, notice: 'コメントできた' }
         format.json { render :show, status: :created, location: @memo }
       else
-        format.html { render :new }
-        format.json { render json: @memo.errors, status: :unprocessable_entity }
+        format.html { render :show }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /memos/1
-  # PATCH/PUT /memos/1.json
-  def update
-    respond_to do |format|
-      if @memo.update(memo_params)
-        format.html { redirect_to @memo, notice: 'Entry was successfully updated.' }
-        format.json { render :show, status: :ok, location: @memo }
-      else
-        format.html { render :edit }
-        format.json { render json: @memo.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /memos/1
-  # DELETE /memos/1.json
-  def destroy
-    @memo.destroy
-    respond_to do |format|
-      format.html { redirect_to memos_url, notice: 'Entry was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

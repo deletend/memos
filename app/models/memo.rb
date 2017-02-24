@@ -1,5 +1,6 @@
 class Memo < ApplicationRecord
   belongs_to :user
+  has_many :comment
   require "redcarpet"
 
   def rendered_body
