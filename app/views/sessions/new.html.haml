@@ -1,0 +1,10 @@
+= form_tag session_path, class: "form-horizontal" do
+  .form-group
+    .col-lg-offset-2.col-lg-4
+      %label ログインユーザー
+      - opts = options_for_select(User.all.map {|u| [u.name, u.id]})
+      = select_tag :user_id, opts, class: "form-control"
+
+  .form-group
+    .col-lg.offset-2.col-lg-10
+      = submit_tag "ログインする", class: "btn btn-primary"
