@@ -2,6 +2,9 @@ class SessionsController < ApplicationController
   def new
   end
 
+  def edit
+  end
+
   def create
     user = User.find_by(id: params[:user_id])
 

@@ -34,12 +34,14 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.navbar-brand{:href => "#"} Memos
+        %a.navbar-brand{:href => "/"} Memos
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav.navbar-right
             - if current_user
               %li
                 %p.navbar-text= current_user.name
+              - unless @edit_mode
+                %li= link_to "管理画面", "/edit"
             - else
               %li
                 %p.navbar-text guest

@@ -34,7 +34,7 @@ class MemosController < ApplicationController
 
     respond_to do |format|
       if @user.memos.create!(title: params["memo"]["title"], body: params["memo"]["body"])
-        format.html { redirect_to @memo, notice: 'Memo was successfully created.' }
+        format.html { redirect_to @memo, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @memo }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class MemosController < ApplicationController
   def update
     respond_to do |format|
       if @memo.update(memo_params)
-        format.html { redirect_to @memo, notice: 'Memo was successfully updated.' }
+        format.html { redirect_to @memo, notice: 'Entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @memo }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class MemosController < ApplicationController
   def destroy
     @memo.destroy
     respond_to do |format|
-      format.html { redirect_to memos_url, notice: 'Memo was successfully destroyed.' }
+      format.html { redirect_to memos_url, notice: 'Entry was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,7 +71,6 @@ class MemosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_memo
       @memo = Memo.find(params[:id])
-      @memo.rendered_body
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
